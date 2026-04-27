@@ -1,0 +1,15 @@
+# 图标文件说明
+
+请在此目录下放置以下图标文件（建议尺寸：81x81 px，格式：PNG）：
+
+- tab-home.png - 首页图标（未选中）
+- tab-home-active.png - 首页图标（选中状态）
+- tab-calendar.png - 日历图标（未选中）
+- tab-calendar-active.png - 日历图标（选中状态）
+- tab-profile.png - 个人中心图标（未选中）
+- tab-profile-active.png - 个人中心图标（选中状态）
+
+可以使用以下方式获取图标：
+1. 使用现有的图标设计工具
+2. 从 iconfont、iconpark 等图标库下载
+3. 使用微信官方推荐的图标尺寸和样式

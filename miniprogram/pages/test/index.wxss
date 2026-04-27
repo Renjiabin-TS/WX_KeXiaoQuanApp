@@ -1,0 +1,79 @@
+/* pages/test/index.wxss */
+
+.test-card {
+  text-align: center;
+  padding: 80rpx 40rpx;
+  background: linear-gradient(135deg, #1989FA 0%, #0C7CD5 100%);
+  border-radius: 16rpx;
+  color: #FFFFFF;
+  margin-bottom: 30rpx;
+}
+
+.success-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.message {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.hint {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+.info-card {
+  padding: 40rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+}
+
+.info-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #303133;
+  margin-bottom: 30rpx;
+}
+
+.info-item {
+  font-size: 28rpx;
+  color: #606266;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #EBEEF5;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+/* 示例区域 */
+.demo-section {
+  padding: 40rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  margin-top: 30rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #303133;
+  margin-bottom: 30rpx;
+}
+
+.demo-btn {
+  background: linear-gradient(135deg, #1989FA 0%, #0C7CD5 100%);
+  color: white;
+  border: none;
+  border-radius: 12rpx;
+  padding: 24rpx 48rpx;
+  font-size: 28rpx;
+}
+
+.demo-btn.secondary {
+  background: #F5F5F5;
+  color: #333333;
+}

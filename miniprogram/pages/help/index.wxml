@@ -1,0 +1,95 @@
+<view class="help-container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="header-title">帮助与反馈</view>
+    <view class="header-subtitle">常见问题解答</view>
+  </view>
+
+  <!-- 常见问题 -->
+  <view class="section">
+    <view class="section-title">常见问题</view>
+
+    <view class="faq-item" wx:for="{{faqList}}" wx:key="id">
+      <view class="faq-question" bindtap="toggleFaq" data-id="{{item.id}}">
+        <view class="question-text">{{item.question}}</view>
+        <text class="arrow-icon">{{expandedId === item.id ? '▼' : '▶'}}</text>
+      </view>
+      <view class="faq-answer" wx:if="{{expandedId === item.id}}">
+        <text>{{item.answer}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用指南 -->
+  <view class="section">
+    <view class="section-title">使用指南</view>
+
+    <view class="guide-item" wx:for="{{guideList}}" wx:key="title">
+      <view class="guide-icon">{{item.icon}}</view>
+      <view class="guide-content">
+        <view class="guide-title">{{item.title}}</view>
+        <view class="guide-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 反馈表单 -->
+  <view class="section">
+    <view class="section-title">意见反馈</view>
+    <view class="feedback-form">
+      <view class="form-item">
+        <text class="form-label">反馈类型</text>
+        <view class="type-selector">
+          <view
+            class="type-option {{feedbackType === '功能建议' ? 'active' : ''}}"
+            bindtap="selectType"
+            data-type="功能建议"
+          >
+            功能建议
+          </view>
+          <view
+            class="type-option {{feedbackType === '问题反馈' ? 'active' : ''}}"
+            bindtap="selectType"
+            data-type="问题反馈"
+          >
+            问题反馈
+          </view>
+          <view
+            class="type-option {{feedbackType === '其他' ? 'active' : ''}}"
+            bindtap="selectType"
+            data-type="其他"
+          >
+            其他
+          </view>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">详细描述</text>
+        <textarea
+          class="form-textarea"
+          placeholder="请详细描述您的问题或建议"
+          value="{{feedbackContent}}"
+          bindinput="onFeedbackInput"
+          maxlength="500"
+        />
+        <text class="char-count">{{feedbackContent.length}}/500</text>
+      </view>
+
+      <button class="submit-btn" bindtap="submitFeedback">
+        提交反馈
+      </button>
+    </view>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="contact-section">
+    <view class="contact-title">联系我们</view>
+    <view class="contact-info">
+      <view class="contact-item">
+        <text class="contact-icon">📧</text>
+        <text class="contact-text">邮箱：15369581103@163.com</text>
+      </view>
+    </view>
+  </view>
+</view>

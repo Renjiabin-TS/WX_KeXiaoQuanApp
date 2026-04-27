@@ -1,0 +1,163 @@
+<view class="container">
+  <!-- 免责声明确认弹窗 -->
+  <view class="modal" wx:if="{{showDisclaimerModal}}">
+    <view class="modal-mask"></view>
+    <view class="modal-content disclaimer-modal">
+      <view class="modal-header">
+        <text class="modal-title">免责声明</text>
+      </view>
+      <view class="modal-body disclaimer-body">
+        <scroll-view scroll-y class="disclaimer-scroll">
+          <view class="disclaimer-text">
+            <text space="ensp">欢迎使用课时管理系统。请在使用前仔细阅读以下免责条款：\n\n
+1. 数据安全声明\n
+本系统对用户数据的存储和传输采用行业标准的安全措施，但不对因不可抗力、网络故障、黑客攻击等原因造成的数据丢失或泄露承担任何责任。用户应定期备份重要数据。\n\n
+2. 服务可用性\n
+本系统可能因维护、升级或不可预见的技术问题而暂时无法使用，我们不对因此造成的任何损失负责。\n\n
+3. 信息准确性\n
+用户应自行确保输入信息的准确性和完整性。系统对用户输入错误或遗漏的信息不承担任何责任。\n\n
+4. 邮件推送服务\n
+邮件推送功能依赖第三方邮件服务商，系统不对邮件发送延迟、未送达或进入垃圾箱等问题承担责任。\n\n
+5. 隐私保护\n
+我们承诺保护用户隐私，但不对因用户自身操作导致的隐私泄露承担责任。用户应妥善保管账户信息。\n\n
+6. 免责声明\n
+在任何情况下，系统运营方均不对因使用或无法使用本系统而造成的任何间接、附带、特殊或惩罚性赔偿承担责任。\n\n
+7. 服务变更\n
+我们保留随时修改或中断服务的权利，恕不另行通知。\n\n
+继续使用本程序即表示您已阅读、理解并同意上述条款。</text>
+          </view>
+        </scroll-view>
+        
+        <view class="disclaimer-checkbox" bindtap="toggleDisclaimer">
+          <view class="checkbox {{disclaimerChecked ? 'checked' : ''}}">
+            <text wx:if="{{disclaimerChecked}}">✓</text>
+          </view>
+          <text class="checkbox-label">我已阅读并同意上述免责声明</text>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-outline" bindtap="rejectDisclaimer">退出</button>
+        <button class="btn btn-primary" bindtap="confirmDisclaimer" disabled="{{!disclaimerChecked}}">同意并继续</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 顶部提示条 - 励志语句模式 -->
+  <bar-tip id="barTip" text="加载中..." autoShow="{{true}}" delay="{{800}}" duration="{{5000}}" pageId="index" useMotivation="{{true}}" alwaysShow="{{true}}"></bar-tip>
+
+  <!-- 统计卡片 -->
+  <view class="card stats-card">
+    <!-- 本周统计方格 -->
+    <view class="stats-box weekly-box">
+      <view class="stats-title">本周统计</view>
+      <view class="stats-row">
+        <view class="stat-item">
+          <view class="stat-value">{{stats.weeklyTotal}}</view>
+          <view class="stat-label">总课时</view>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <view class="stat-value">{{stats.weeklyOneToOne}}</view>
+          <view class="stat-label">一对一</view>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <view class="stat-value">{{stats.weeklyClass}}</view>
+          <view class="stat-label">班课</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 本月统计方格 -->
+    <view class="stats-box monthly-box">
+      <view class="stats-title">本月统计</view>
+      <view class="stats-row">
+        <view class="stat-item">
+          <view class="stat-value">{{stats.monthlyTotal}}</view>
+          <view class="stat-label">总课时</view>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <view class="stat-value">{{stats.monthlyOneToOne}}</view>
+          <view class="stat-label">一对一</view>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <view class="stat-value">{{stats.monthlyClass}}</view>
+          <view class="stat-label">班课</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 课时列表 -->
+  <view class="card">
+    <view class="section-header">
+      <text class="section-title">最近课时</text>
+      <view class="add-btn" bindtap="goToAdd">+ 添加</view>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading">
+      加载中...
+    </view>
+
+    <view wx:elif="{{lessons.length === 0}}" class="empty-state">
+      <view class="empty-icon">BOOK</view>
+      <view class="empty-text">暂无课时记录</view>
+      <view class="empty-hint">点击上方"添加"按钮创建第一条记录</view>
+    </view>
+
+    <view wx:else class="lesson-list">
+      <view
+        class="lesson-item"
+        wx:for="{{lessons}}"
+        wx:key="_id"
+        data-lesson="{{item}}"
+        bindtap="goToEdit"
+      >
+        <view class="lesson-left">
+          <view class="lesson-date">{{item.date}}</view>
+          <view class="lesson-info">
+            <text class="lesson-tag {{item.lesson_type === '一对一' ? 'tag-green' : 'tag-blue'}}">
+              {{item.lesson_type === '一对一' ? '一对一' : '班课'}}
+            </text>
+            <text class="lesson-time">{{item.start_time}} - {{item.end_time}}</text>
+          </view>
+          <view class="lesson-student">
+            <text wx:if="{{item.lesson_type === '一对一'}}">学生: {{item.student_name}}</text>
+            <text wx:else>班级: {{item.student_count || 0}}人</text>
+          </view>
+        </view>
+        <view class="lesson-right">
+          <view class="lesson-duration">{{item.duration}}课时</view>
+          <view class="lesson-delete" catchtap="deleteLesson" data-lesson="{{item}}">
+            <text>DELETE</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 删除验证弹窗 -->
+  <view wx:if="{{verifyNumbers.length > 0}}" class="verify-modal">
+    <view class="verify-content">
+      <view class="verify-title">向右滑动解锁删除</view>
+      <view class="slide-container">
+        <view class="slide-track">
+          <view class="slide-bar" style="width: {{slideProgress}}%;"></view>
+        </view>
+        <view
+          class="slide-btn"
+          style="left: {{slideProgress - 10}}%;"
+          bindtouchstart="slideStart"
+          bindtouchmove="slideMove"
+          bindtouchend="slideEnd"
+        >
+          <text class="slide-icon">→</text>
+        </view>
+        <view class="slide-text {{slideProgress > 80 ? 'hide' : ''}}">滑动解锁</view>
+      </view>
+      <view class="verify-cancel" bindtap="cancelVerify">取消</view>
+    </view>
+  </view>
+</view>

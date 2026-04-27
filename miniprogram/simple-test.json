@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "pages/test/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "简单测试"
+  },
+  "sitemapLocation": "sitemap.json"
+}

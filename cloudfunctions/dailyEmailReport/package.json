@@ -1,0 +1,10 @@
+{
+  "name": "dailyEmailReport",
+  "version": "1.0.0",
+  "description": "每日定时发送课时统计邮件",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "nodemailer": "^6.9.0"
+  }
+}

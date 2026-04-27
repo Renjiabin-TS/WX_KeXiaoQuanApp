@@ -1,0 +1,73 @@
+<view class="container">
+  <view class="form-section">
+    <view class="section-title">基本信息</view>
+
+    <!-- 授课日期 -->
+    <view class="form-item">
+      <text class="label">授课日期</text>
+      <picker mode="date" value="{{formData.date}}" bindchange="onDateChange">
+        <view class="picker-box">
+          <text class="picker-text">{{formData.date}}</text>
+          <text class="arrow">></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 时间 -->
+    <view class="form-item time-row">
+      <view class="time-col">
+        <text class="label">开始时间</text>
+        <picker mode="time" value="{{formData.start_time}}" bindchange="onStartTimeChange">
+          <view class="picker-box">
+            <text class="picker-text">{{formData.start_time || '09:30'}}</text>
+            <text class="arrow">></text>
+          </view>
+        </picker>
+      </view>
+      <view class="time-col">
+        <text class="label">结束时间</text>
+        <picker mode="time" value="{{formData.end_time}}" bindchange="onEndTimeChange">
+          <view class="picker-box">
+            <text class="picker-text">{{formData.end_time || '11:30'}}</text>
+            <text class="arrow">></text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 课程类型 -->
+    <view class="form-item">
+      <text class="label">课程类型</text>
+      <picker bindchange="onLessonTypeChange" value="{{lessonTypeIndex}}" range="{{lessonTypes}}">
+        <view class="picker-box">
+          <text class="picker-text">{{formData.lesson_type}}</text>
+          <text class="arrow">></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 老师姓名 -->
+    <view class="form-item">
+      <text class="label">老师姓名</text>
+      <input class="input-box" value="{{formData.teacher_name}}" bindinput="onTeacherNameInput" placeholder="请输入老师姓名" />
+    </view>
+
+    <!-- 学生姓名 -->
+    <view class="form-item">
+      <text class="label">学生姓名 <text class="optional">（非必填）</text></text>
+      <input class="input-box" value="{{formData.student_name}}" bindinput="onStudentNameInput" placeholder="请输入学生姓名（可选）" />
+    </view>
+
+    <!-- 课时数 -->
+    <view class="duration-box">
+      <text class="duration-label">课时</text>
+      <view class="duration-value-box">
+        <text class="duration-value">{{formData.duration}}</text>
+      </view>
+      <text class="duration-unit">课时</text>
+    </view>
+
+    <!-- 保存按钮 -->
+    <button class="save-btn" bindtap="saveLesson">保存课时</button>
+  </view>
+</view>

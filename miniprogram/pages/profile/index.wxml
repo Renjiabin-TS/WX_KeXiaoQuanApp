@@ -1,0 +1,283 @@
+<view class="container">
+  <!-- 未登录状态 -->
+  <view wx:if="{{!isLoggedIn}}" class="not-logged-container">
+    <!-- 头像区域 -->
+    <view class="avatar-section">
+      <view class="avatar-placeholder">
+        <text class="avatar-icon">👤</text>
+      </view>
+      <view class="login-title">欢迎使用课时管理</view>
+      <view class="login-subtitle">登录后开始管理您的课时记录</view>
+    </view>
+
+    <!-- 登录按钮 -->
+    <view class="login-actions">
+      <button class="btn btn-primary btn-large" bindtap="onWechatLogin">
+        微信一键登录
+      </button>
+      <view class="login-tip">提示: 请在真机上测试，开发者工具不支持</view>
+    </view>
+
+    <!-- 功能列表 -->
+    <view class="feature-list">
+      <view class="feature-item" bindtap="showLoginTip">
+        <view class="feature-icon">📊</view>
+        <view class="feature-info">
+          <view class="feature-name">课时统计</view>
+          <view class="feature-desc">查看本周和本月课时数据</view>
+        </view>
+        <view class="feature-lock">🔒</view>
+      </view>
+      <view class="feature-item" bindtap="showLoginTip">
+        <view class="feature-icon">📅</view>
+        <view class="feature-info">
+          <view class="feature-name">日历视图</view>
+          <view class="feature-desc">日历形式查看课时安排</view>
+        </view>
+        <view class="feature-lock">🔒</view>
+      </view>
+      <view class="feature-item" bindtap="showLoginTip">
+        <view class="feature-icon">⚙️</view>
+        <view class="feature-info">
+          <view class="feature-name">系统设置</view>
+          <view class="feature-desc">个性化配置和使用偏好</view>
+        </view>
+        <view class="feature-lock">🔒</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已登录·未验证邮箱 -->
+  <view wx:elif="{{isLoggedIn && !email}}" class="logged-container">
+    <!-- 头部信息 -->
+    <view class="user-header">
+      <button class="user-avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image
+          class="user-avatar"
+          src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}"
+          mode="aspectFill"
+        />
+        <view class="avatar-edit-icon">📷</view>
+      </button>
+      <view class="user-info">
+        <input
+          class="user-name-input"
+          type="nickname"
+          value="{{userInfo.nickname || '微信用户'}}"
+          placeholder="点击设置昵称"
+          bindblur="onNicknameBlur"
+        />
+        <view class="user-status unverified">
+          <text class="status-icon">⚠️</text>
+          <text>未验证邮箱</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提示卡片 -->
+    <view class="tip-card warning">
+      <view class="tip-icon">💡</view>
+      <view class="tip-content">
+        <view class="tip-title">验证邮箱以获取完整功能</view>
+        <view class="tip-desc">验证邮箱后可接收课时推送通知和重要消息</view>
+      </view>
+    </view>
+
+    <!-- 邮箱验证按钮 -->
+    <view class="verify-btn-section">
+      <button class="btn btn-primary btn-block" bindtap="showEmailVerify">
+        验证邮箱
+      </button>
+    </view>
+
+    <!-- 功能列表 -->
+    <view class="settings-list">
+      <view class="list-title">可用功能</view>
+      <view class="list-item" bindtap="goToHome">
+        <view class="item-icon">📊</view>
+        <text class="item-label">课时统计</text>
+        <text class="item-arrow">></text>
+      </view>
+      <view class="list-item" bindtap="goToCalendar">
+        <view class="item-icon">📅</view>
+        <text class="item-label">日历视图</text>
+        <text class="item-arrow">></text>
+      </view>
+    </view>
+
+    <!-- 退出登录按钮 -->
+    <view class="logout-section">
+      <button class="btn btn-outline btn-block btn-danger" bindtap="logout">
+        退出登录
+      </button>
+    </view>
+  </view>
+
+  <!-- 已登录·已验证邮箱 -->
+  <view wx:else class="logged-container">
+    <!-- 头部信息 -->
+    <view class="user-header">
+      <button class="user-avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image
+          class="user-avatar"
+          src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}"
+          mode="aspectFill"
+        />
+        <view class="avatar-edit-icon">📷</view>
+      </button>
+      <view class="user-info">
+        <input
+          class="user-name-input"
+          type="nickname"
+          value="{{userInfo.nickname || '微信用户'}}"
+          placeholder="点击设置昵称"
+          bindblur="onNicknameBlur"
+        />
+        <view class="user-status verified">
+          <text class="status-icon">✅</text>
+          <text>{{email}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 功能列表 -->
+    <view class="settings-list">
+      <view class="list-item" bindtap="goToHome">
+        <view class="item-icon">📊</view>
+        <text class="item-label">课时统计</text>
+        <text class="item-arrow">></text>
+      </view>
+      <view class="list-item" bindtap="goToCalendar">
+        <view class="item-icon">📅</view>
+        <text class="item-label">日历视图</text>
+        <text class="item-arrow">></text>
+      </view>
+      <view class="list-divider"></view>
+      <view class="list-item" bindtap="manualSendReport">
+        <view class="item-icon">📤</view>
+        <text class="item-label">手工推送报表</text>
+        <text class="item-desc">立即发送今日课时统计</text>
+        <text class="item-arrow">></text>
+      </view>
+      <view class="list-item" bindtap="showEditEmail">
+        <view class="item-icon">📧</view>
+        <text class="item-label">修改邮箱</text>
+        <text class="item-value">{{email}}</text>
+        <text class="item-arrow">></text>
+      </view>
+      <view class="list-divider"></view>
+      <view class="list-item" bindtap="goToHelp">
+        <view class="item-icon">❓</view>
+        <text class="item-label">帮助与反馈</text>
+        <text class="item-arrow">></text>
+      </view>
+      <view class="list-item">
+        <view class="item-icon">ℹ️</view>
+        <text class="item-label">关于我们</text>
+        <text class="item-value">v1.0.0</text>
+        <text class="item-arrow">></text>
+      </view>
+    </view>
+
+    <!-- 退出登录按钮 -->
+    <view class="logout-section">
+      <button class="btn btn-outline btn-block btn-danger" bindtap="logout">
+        退出登录
+      </button>
+    </view>
+  </view>
+
+  <!-- 邮箱验证弹窗 -->
+  <view class="modal" wx:if="{{showEmailModal}}">
+    <view class="modal-mask" bindtap="hideEmailModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">验证邮箱</text>
+        <text class="modal-close" bindtap="hideEmailModal">✕</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="form-label">邮箱地址</text>
+          <input
+            class="form-input"
+            type="text"
+            placeholder="请输入邮箱地址"
+            value="{{loginEmail}}"
+            bindinput="onLoginEmailInput"
+          />
+        </view>
+        <view class="form-item">
+          <text class="form-label">验证码</text>
+          <view class="code-wrapper">
+            <input
+              class="form-input code-input"
+              type="number"
+              placeholder="请输入6位验证码"
+              value="{{loginCode}}"
+              bindinput="onLoginCodeInput"
+              maxlength="6"
+            />
+            <button
+              class="btn btn-outline code-btn"
+              bindtap="sendCode"
+              disabled="{{codeSending || countdown > 0}}"
+            >
+              {{countdown > 0 ? countdown + 's后重发' : '发送验证码'}}
+            </button>
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-outline" bindtap="hideEmailModal">取消</button>
+        <button class="btn btn-primary" bindtap="verifyEmail">验证</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 修改邮箱弹窗 -->
+  <view class="modal" wx:if="{{showEditModal}}">
+    <view class="modal-mask" bindtap="hideEditModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">修改邮箱</text>
+        <text class="modal-close" bindtap="hideEditModal">✕</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="form-label">新邮箱地址</text>
+          <input
+            class="form-input"
+            type="text"
+            placeholder="请输入新的邮箱地址"
+            value="{{tempEmail}}"
+            bindinput="onEmailInput"
+          />
+        </view>
+        <view class="form-item">
+          <text class="form-label">验证码</text>
+          <view class="code-wrapper">
+            <input
+              class="form-input code-input"
+              type="number"
+              placeholder="请输入6位验证码"
+              value="{{loginCode}}"
+              bindinput="onLoginCodeInput"
+              maxlength="6"
+            />
+            <button
+              class="btn btn-outline code-btn"
+              bindtap="sendCodeWithEmail"
+              disabled="{{codeSending || countdown > 0}}"
+            >
+              {{countdown > 0 ? countdown + 's后重发' : '发送验证码'}}
+            </button>
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-outline" bindtap="hideEditModal">取消</button>
+        <button class="btn btn-primary" bindtap="saveEmail">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

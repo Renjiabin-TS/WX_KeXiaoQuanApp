@@ -1,0 +1,12 @@
+{
+  "name": "smtp-test",
+  "version": "1.0.0",
+  "description": "SMTP测试脚本",
+  "main": "test-smtp.js",
+  "scripts": {
+    "test": "node test-smtp.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.0"
+  }
+}

@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="test-card">
+    <view class="success-icon">SUCCESS</view>
+    <view class="message">{{message}}</view>
+    <view class="hint">如果能看到这个页面，说明小程序已经成功运行</view>
+  </view>
+
+  <view class="info-card">
+    <view class="info-title">当前信息</view>
+    <view class="info-item">页面路径：pages/test/index</view>
+    <view class="info-item">环境：云开发（已配置）</view>
+    <view class="info-item">状态：正常运行</view>
+  </view>
+
+  <!-- Bar 提示组件测试 -->
+  <view class="demo-section">
+    <view class="section-title">Bar 提示组件示例</view>
+    <button class="demo-btn" bindtap="showBarTip">显示 Bar 提示</button>
+    <button class="demo-btn secondary" bindtap="resetTip" style="margin-top: 20rpx;">重置提示（刷新后自动显示）</button>
+    <view class="hint" style="margin-top: 20rpx;">提示：页面加载后会自动显示，关闭后不再显示。点击"重置提示"可以重新启用自动显示。</view>
+  </view>
+
+  <!-- Bar 提示组件 -->
+  <bar-tip id="barTip" text="点击添加至我的小程序 便于以后找到我" autoShow="{{true}}" delay="{{500}}"></bar-tip>
+</view>

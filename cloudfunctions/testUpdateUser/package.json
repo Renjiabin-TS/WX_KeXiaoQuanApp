@@ -1,0 +1,9 @@
+{
+  "name": "testUpdateUser",
+  "version": "1.0.0",
+  "description": "测试更新用户邮箱",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

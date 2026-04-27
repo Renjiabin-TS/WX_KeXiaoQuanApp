@@ -1,0 +1,64 @@
+/* components/bar-tip/index.wxss */
+.bar-tip-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.bar-tip-wrapper.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.bar-tip-content {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  padding: 20rpx 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.bar-tip-icon {
+  flex-shrink: 0;
+  margin-right: 16rpx;
+}
+
+.star-icon {
+  width: 48rpx;
+  height: 48rpx;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.bar-tip-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.bar-tip-close {
+  flex-shrink: 0;
+  margin-left: 20rpx;
+  padding: 10rpx;
+}
+
+.close-icon {
+  font-size: 36rpx;
+  color: #999999;
+  line-height: 1;
+}

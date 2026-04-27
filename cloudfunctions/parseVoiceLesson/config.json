@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "openapi": []
+  },
+  "timeout": 60,
+  "environment": {
+    "HUNYUAN_API_KEY": "sk-qzbgm05iu9hWfo3RlRaWozgy6ezenGIQRVBznwgKaCAILJr5",
+    "TENCENT_APP_ID": "1415288203",
+    "TENCENT_SECRET_ID": "AKIDFI7fy1nJYXFhsnSqyqzwgBQP9dswoTtL",
+    "TENCENT_SECRET_KEY": "HI4bsW2JK5aqrb5KM8ekbDj4B3h6GBsK"
+  }
+}

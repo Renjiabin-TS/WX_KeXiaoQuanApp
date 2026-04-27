@@ -1,0 +1,12 @@
+<!--components/bar-tip/index.wxml-->
+<view class="bar-tip-wrapper {{show ? 'show' : ''}}" bindtap="onTap">
+  <view class="bar-tip-content">
+    <view class="bar-tip-icon">
+      <view class="star-icon">★</view>
+    </view>
+    <text class="bar-tip-text">{{currentText}}</text>
+    <view class="bar-tip-close" catchtap="onClose">
+      <text class="close-icon">×</text>
+    </view>
+  </view>
+</view>

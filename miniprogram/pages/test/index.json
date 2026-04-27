@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "测试页面",
+  "usingComponents": {
+    "bar-tip": "/components/bar-tip/index"
+  }
+}

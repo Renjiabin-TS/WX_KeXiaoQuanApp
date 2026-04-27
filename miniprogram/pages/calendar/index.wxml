@@ -1,0 +1,75 @@
+<view class="container">
+  <view class="card">
+    <!-- 日历头部 -->
+    <view class="calendar-header">
+      <view class="calendar-nav" bindtap="prevMonth">◀</view>
+      <view class="calendar-title">{{currentYear}}年{{currentMonth}}月</view>
+      <view class="calendar-nav" bindtap="nextMonth">▶</view>
+    </view>
+
+    <!-- 星期 -->
+    <view class="calendar-weekdays">
+      <view 
+        class="weekday {{item === '日' ? 'weekday-sunday' : ''}}" 
+        wx:for="{{weekDays}}" 
+        wx:key="index"
+      >
+        {{item}}
+      </view>
+    </view>
+
+    <!-- 日期 -->
+    <view class="calendar-days">
+      <view
+        class="day {{!item.isCurrentMonth ? 'day-muted' : ''}} {{item.isToday ? 'day-today' : ''}} {{item.dayColor === 'green' ? 'day-green' : ''}} {{item.dayColor === 'blue' ? 'day-blue' : ''}} {{selectedDate === item.dateStr ? 'day-selected' : ''}}"
+        wx:for="{{monthDays}}"
+        wx:key="index"
+        data-day="{{item.day}}"
+        data-iscurrentmonth="{{item.isCurrentMonth}}"
+        data-datestr="{{item.dateStr}}"
+        bindtap="selectDate"
+      >
+        <view class="day-number">{{item.day}}</view>
+        <view class="day-lessons" wx:if="{{item.lessons.length > 0}}">
+          <view class="lesson-dot {{item.dayColor === 'green' ? 'dot-green' : 'dot-blue'}}"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="calendar-actions">
+      <button class="btn btn-outline" bindtap="exportData">导出数据</button>
+      <button class="btn btn-primary" bindtap="goToAdd">添加课时</button>
+    </view>
+  </view>
+
+  <!-- 课时详情 -->
+  <view class="card" wx:if="{{showDetail && selectedDate}}">
+    <view class="section-header">
+      <text class="section-title">{{selectedDate}} 课时详情</text>
+    </view>
+
+    <view wx:if="{{selectedLessons.length === 0}}" class="empty-state">
+      <view class="empty-icon">CALENDAR</view>
+      <view class="empty-text">该日期无课时记录</view>
+    </view>
+
+    <view wx:else class="lesson-list">
+      <view
+        class="lesson-item"
+        wx:for="{{selectedLessons}}"
+        wx:key="_id"
+        data-id="{{item._id}}"
+        bindtap="goToEdit"
+      >
+        <view class="lesson-left">
+          <view class="lesson-time">{{item.start_time}} - {{item.end_time}}</view>
+          <view class="lesson-type">{{item.lesson_type}}</view>
+        </view>
+        <view class="lesson-right">
+          <view class="lesson-duration">{{item.duration}}课时</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
